@@ -25,13 +25,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+        /*mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng coordenada) {
                 mMap.addMarker(new MarkerOptions().position(coordenada).title("Nueva localizacion"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenada, 15));
             }
-        });
+        });*/
     }
 
 
@@ -47,6 +47,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng coordenada) {
+                mMap.addMarker(new MarkerOptions().position(coordenada).title("Nueva localizacion"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenada, 15));
+            }
+        });
 
         // Add a marker in Sydney and move the camera
         LatLng usach = new LatLng(-33.4501044,-70.6858881);
