@@ -2,12 +2,14 @@ package com.example.sebastian.pruebamapa;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -22,6 +24,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng coordenada) {
+                mMap.addMarker(new MarkerOptions().position(coordenada).title("Nueva localizacion"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenada, 15));
+            }
+        });
     }
 
 
@@ -41,6 +51,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         LatLng usach = new LatLng(-33.4501044,-70.6858881);
         mMap.addMarker(new MarkerOptions().position(usach).title("Usachita :3"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(usach));
+
+        LatLng usach2 = new LatLng(-33.4497262,-70.6877551);
+        mMap.addMarker(new MarkerOptions().position(usach2).title("Info"));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(usach, 15));
     }
 }
